@@ -185,6 +185,7 @@ export class LogRouter {
    * @method init
    */
   init() {
+    console.log('log router');
     this.router.post('/', this.create);
     this.router.post('/upload', upload.single('hour-log'), this.fileUpload);
     this.router.get('/', this.getAll);
