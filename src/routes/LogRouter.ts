@@ -82,7 +82,7 @@ export class LogRouter {
    * @param next {NextFunction} The next function to continue
    */
   public getAll(req: Request, res: Response, next: NextFunction) { 
-    let search = req.query.fromDate || req.query.toDate ? { date: {} } : {};
+    let search = { date: { $gte: '01/01/1970', $lte: moment().format('MM/DD/YYYY') } };
     if (req.query.fromDate) {
       search.date['$gte'] = moment(req.query.fromDate, 'YYYY-MM-DD').startOf('day').format('MM/DD/YYYY');
     }
