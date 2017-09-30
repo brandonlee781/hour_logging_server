@@ -7,22 +7,25 @@ class AuthMiddleware {
   authenticate(req: Request, res: Response, next: NextFunction) {
     const authHeader = JSON.stringify(req.headers.authorization);
     const reqCode = authHeader.split(' ')[1];
+    console.log(reqCode);
     AuthCode.findOne({ code: reqCode }).then(result => {
       if (!result) {
         res.sendStatus(401);
-        return next();
+        return;
       }
+      console.log(result);
       
       const authCode: IAuthCodeModel = result;
       const now: number = (new Date()).getTime();
       const expires: number = (new Date(authCode.expiresAt)).getTime();
 
       if (now <= expires) {
-        return next();
+        next();
+        return;
       } else {
         result.remove();
         res.status(401).send({ message: 'This authorization code has expires' });
-        return next();
+        return;
       }
     })
   }
