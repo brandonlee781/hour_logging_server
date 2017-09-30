@@ -15,7 +15,7 @@ import AccessRouter from './routes/AccessRouter';
 
 // interfaces
 import { IUser } from './interfaces/user';
-import { ILog } from './interfaces/Log';
+import { ILog } from './interfaces/log';
 
 // models
 import { IModel } from './models/model';
