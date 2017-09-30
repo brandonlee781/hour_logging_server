@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon ./dist/index.js",
     "test": "mocha --reporter spec --compilers ts:ts-node/register 'test/**/*.test.ts'",
-    "dev": "tsc -p ./tsconfig.build.json"
+    "dev": "tsc -p ./tsconfig.build.json",
+    "deploy": "pm2 deploy ecosystem.config.js production setup"
   },
   "keywords": [],
   "author": "",
