@@ -74,6 +74,7 @@ class App {
     this.express.get('/', function(req, res, next) {
       res.send('Hello World');
     })
+    console.log(process.env.MLAB_USER);
 
     this.express.use('/', router);
     this.express.use('/login', LoginRouter);
