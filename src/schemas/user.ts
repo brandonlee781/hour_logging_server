@@ -4,18 +4,18 @@ export const userSchema: Schema = new Schema({
   createdAt: {
     type: Date,
     require: true,
-    default: Date.now
+    default: Date.now,
   },
   email: {
     type: String,
-    require: true
+    require: true,
   },
   firstName: {
     type: String,
-    require: true
+    require: true,
   },
   lastName: {
     type: String,
-    require: true
-  }
+    require: true,
+  },
 });

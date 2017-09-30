@@ -1,8 +1,8 @@
-import { suite, test } from "mocha-typescript";
-import { ILog } from "../src/interfaces/log";
+import { suite, test } from 'mocha-typescript';
+import { ILog } from '../src/interfaces/log';
 import chaiHttp = require('chai-http');
 
-let chai = require("chai");
+const chai = require('chai');
 let testID: string;
 
 describe('Log Web API', () => {
@@ -11,7 +11,7 @@ describe('Log Web API', () => {
     public route = chai.request('http://localhost:3000/api/v1/logs');
 
     public static before() {
-      //require chai and use should() assertions
+      // require chai and use should() assertions
       chai.should();
       chai.use(chaiHttp);
     }
@@ -22,8 +22,8 @@ describe('Log Web API', () => {
         startTime: '8:00',
         endTime: '12:00',
         duration: 4,
-        project: 'Quantogy'
-      }
+        project: 'Quantogy',
+      };
     }
   }
 
@@ -34,7 +34,7 @@ describe('Log Web API', () => {
       return this.route
         .post('/')
         .send(this.data)
-        .then(result => {
+        .then((result) => {
           testID = result.body._id;
           const dateString = (new Date(result.body.date)).toString();
           result.should.have.status(200);
@@ -47,7 +47,7 @@ describe('Log Web API', () => {
           result.body.duration.should.be.an('number');
           result.body.duration.should.equal(this.data.duration);
           result.body.project.should.equal(this.data.project);
-        })
+        });
     }
   }
 
@@ -57,16 +57,16 @@ describe('Log Web API', () => {
     public getAll() {
       return this.route
         .get('/')
-        .then(result => {
+        .then((result) => {
           result.should.have.status(200);
           result.body.should.exist;
           result.body.should.be.an('array');
-          result.body.should.satisfy(logs => {
-            return logs.every(log => {
+          result.body.should.satisfy((logs) => {
+            return logs.every((log) => {
               return log instanceof Object;
-            })
-          })
-        })
+            });
+          });
+        });
     }
   }
 
@@ -75,21 +75,30 @@ describe('Log Web API', () => {
     @test('should get a single, specific log entry')
     public getOne() {
       return this.route
-        .get('/'+testID)
-        .then(result => {
+        .get('/' + testID)
+        .then((result) => {
           result.should.have.status(200);
           result.body.should.exist;
           result.body._id.should.equal(testID);
-          result.body.should.have.all.keys('__v', '_id', 'startTime', 'endTime', 'date', 'duration', 'project', 'createdAt');
-        })
+          result.body.should.have.all.keys(
+            '__v', 
+            '_id', 
+            'startTime', 
+            'endTime', 
+            'date', 
+            'duration', 
+            'project', 
+            'createdAt',
+          );
+        });
     }
     @test('should fail to get a route')
     public invalidId() {
       return this.route
         .get('/not-a-real-id')
-        .catch(result => {
+        .catch((result) => {
           result.should.have.status(404);
-        })
+        });
     }
   }
 
@@ -98,13 +107,13 @@ describe('Log Web API', () => {
     @test('should update and return a log entry')
     public update() {
       return this.route
-        .put('/'+testID)
+        .put('/' + testID)
         .send({ startTime: '7:00', duration: 5 })
-        .then(result => {
+        .then((result) => {
           result.should.have.status(200);
           result.body.duration.should.equal(5);
           result.body.startTime.should.equal('7:00');
-        })
+        });
     }
 
     @test('should fail to update route')
@@ -112,9 +121,9 @@ describe('Log Web API', () => {
       return this.route
         .put('/invalid-id')
         .send({ startTime: '7:00', duration: 5 })
-        .catch(result => {
+        .catch((result) => {
           result.should.have.status(404);
-        })
+        });
     }
   }
 
@@ -123,20 +132,20 @@ describe('Log Web API', () => {
     @test('should delete a log entry and return no data')
     public delete() {
       return this.route
-        .delete('/'+testID)
-        .then(result => {
+        .delete('/' + testID)
+        .then((result) => {
           result.should.have.status(204);
           result.body.should.be.empty;
-        })
+        });
     }
 
     @test('should fail to delete a log entry')
     public invalidId() {
       return this.route
         .delete('/invalid-id')
-        .catch(result => {
+        .catch((result) => {
           result.should.have.status(404);
-        })
+        });
     }
   }
 });

@@ -4,7 +4,7 @@ import * as nodemailer from 'nodemailer';
 import * as crypto from 'crypto';
 require('dotenv').config();
 
-import { AccessCode, IAccessCodeModel } from '../models/accessCode';
+import AccessCode, { IAccessCodeModel } from '../models/AccessCode';
 
 /**
  * @class AccessRouter
@@ -15,11 +15,10 @@ export class AccessRouter {
     service: 'Mailgun',
     auth: {
       user: process.env.MG_DOMAIN,
-      pass: process.env.MG_PASS
-    }
-  }
+      pass: process.env.MG_PASS,
+    },
+  };
   transporter: nodemailer.Transporter;
-  AccessCode: IAccessCodeModel;
 
   constructor() {
     this.router = Router();
@@ -28,17 +27,18 @@ export class AccessRouter {
   }
 
   public emailAccessCode(req: Request, res: Response, next: NextFunction) {
-    const self = this;
     const accessCode = new AccessCode({ code: this.createAccessCode() });
-    let mail = {
+    const mail = {
       from: '"Hour Logger" <brandonlee781@gmail.com>',
       to: 'brandonlee781@gmail.com',
       subject: 'Link to access Hour Logger',
-      html: ''
+      html: '',
     };
     accessCode.save()
-      .then(result => {
-        mail.html = `<a href="http://localhost:8080/login?accessCode=${result.code}">Click to Log in to Log Router</a>`
+      .then((result) => {
+        mail.html = `<a href="http://localhost:8080/login?accessCode=${result.code}">
+                      Click to Log in to Log Router
+                    </a>`;
 
         this.transporter.sendMail(mail, (error, info) => {
           if (error) {
@@ -47,12 +47,12 @@ export class AccessRouter {
           } else {
             res.sendStatus(200);
           }
-        })
+        });
 
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
-      })
+      });
   }
 
   private createAccessCode() {

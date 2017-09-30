@@ -3,8 +3,8 @@ import * as mongoose from 'mongoose';
 import * as crypto from 'crypto';
 require('dotenv').config();
 
-import { AccessCode, IAccessCodeModel } from '../models/accessCode';
-import { AuthCode, IAuthCodeModel } from '../models/authCode';
+import AccessCode, { IAccessCodeModel } from '../models/AccessCode';
+import AuthCode, { IAuthCodeModel } from '../models/AuthCode';
 
 /**
  * @class LogRouter
@@ -20,8 +20,8 @@ export class LoginRouter {
   public generateAuthCode(req: Request, res: Response, next: NextFunction) {
     const reqCode = req.query.accessCode;
     AccessCode
-      .findOne({code: reqCode})
-      .then(access => {
+      .findOne({ code: reqCode })
+      .then((access) => {
         if (!access) {
           res.sendStatus(401);
           return;
@@ -32,8 +32,8 @@ export class LoginRouter {
 
         if (now <= expires) {
           const code = crypto.randomBytes(20).toString('hex');
-          const authCode = new AuthCode({code: code});
-          authCode.save().then(result => {
+          const authCode = new AuthCode({ code });
+          authCode.save().then((result) => {
             access.remove();
             res.status(200).send(result.toObject());
             return;
@@ -44,10 +44,10 @@ export class LoginRouter {
           return;
         }
       })
-      .catch(err => {
-        res.status(500).send({err: err});
+      .catch((err) => {
+        res.status(500).send({ err });
         return;
-      })
+      });
   }
 
   init() {

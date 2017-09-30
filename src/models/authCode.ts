@@ -1,10 +1,12 @@
 import * as mongoose from 'mongoose';
-import { Document, Model } from 'mongoose';
 import { IAuthCode } from '../interfaces/authCode';
 import { authCodeSchema } from '../schemas/authCode';
 
-export interface IAuthCodeModel extends IAuthCode, Document {}
+export interface IAuthCodeModel extends IAuthCode, mongoose.Document {}
 
-export interface IAuthCodeModelStatic extends Model<IAuthCodeModel> {}
+export interface IAuthCodeModelStatic extends mongoose.Model<IAuthCodeModel> {}
 
-export const AuthCode = mongoose.model<IAuthCodeModel, IAuthCodeModelStatic>('AuthCode', authCodeSchema);
+export default mongoose.model<IAuthCodeModel, IAuthCodeModelStatic>(
+  'AuthCode', 
+  authCodeSchema,
+);

@@ -7,21 +7,21 @@ export const accessCodeSchema: Schema = new Schema({
     type: String,
     required: true,
     default: uuid,
-    unique: true
+    unique: true,
   },
   code: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   createdAt: {
     type: Date,
     required: true,
-    default: Date.now
+    default: Date.now,
   },
   expiresAt: {
     type: Date,
     required: true,
-    default: moment().add(3, 'minutes').toDate()
-  }
-})
+    default: moment().add(3, 'minutes').toDate(),
+  },
+});
