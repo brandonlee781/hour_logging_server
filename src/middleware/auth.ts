@@ -11,7 +11,7 @@ class AuthMiddleware {
     }
     const authHeader: any = req.headers.authorization;
     const reqCode = authHeader.split(' ')[1];
-    AuthCode.findOne({ code: reqCode }).then(result => {
+    AuthCode.findOne({ code: reqCode }).then((result) => {
       console.log(result);
       if (!result) {
         res.sendStatus(401);
@@ -30,7 +30,7 @@ class AuthMiddleware {
         res.status(401).send({ message: 'This authorization code has expires' });
         return;
       }
-    })
+    });
   }
 }
 

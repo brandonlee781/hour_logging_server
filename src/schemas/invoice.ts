@@ -5,42 +5,42 @@ import * as moment from 'moment';
 export const invoiceProjectSchema: Schema = new Schema({
   name: {
     type: String,
-    required: true
+    required: true,
   },
   hours: {
     type: Number,
-    required: true
+    required: true,
   },
   amount: {
     type: Number,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 
 export const invoiceSchema: Schema = new Schema({
   createdAt: {
     type: Date,
     required: true,
-    default: Date.now
+    default: Date.now,
   },
   _id: {
     type: String,
     required: true,
     default: uuid,
-    unique: true
+    unique: true,
   },
   number: {
     type: Number,
     required: true,
-    unique: true
+    unique: true,
   },
   date: {
     type: String,
-    required: true
+    required: true,
   },
   total: {
     type: Number,
-    required: true
+    required: true,
   },
-  project: [invoiceProjectSchema]
-})
+  project: [invoiceProjectSchema],
+});

@@ -6,21 +6,21 @@ export const authCodeSchema: Schema = new Schema({
     type: String,
     required: true,
     default: uuid,
-    unique: true
+    unique: true,
   },
   code: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   createdAt: {
     type: Date,
     required: true,
-    default: Date.now
+    default: Date.now,
   },
   expiresAt: {
     type: Date,
     required: true,
-    default: new Date(+new Date() + (2*7*24*60*60*1000))
-  }
-})
+    default: new Date(+new Date() + (2 * 7 * 24 * 60 * 60 * 1000)), // 2 weeks
+  },
+});
