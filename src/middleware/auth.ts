@@ -9,11 +9,11 @@ class AuthMiddleware {
     const reqCode = authHeader.split(' ')[1];
     console.log(reqCode);
     AuthCode.findOne({ code: reqCode }).then(result => {
+      console.log(result);
       if (!result) {
         res.sendStatus(401);
         return;
       }
-      console.log(result);
       
       const authCode: IAuthCodeModel = result;
       const now: number = (new Date()).getTime();
