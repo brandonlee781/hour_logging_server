@@ -5,9 +5,8 @@ class AuthMiddleware {
   constructor() {}
 
   authenticate(req: Request, res: Response, next: NextFunction) {
-    const authHeader = JSON.stringify(req.headers.authorization);
+    const authHeader: any = req.headers.authorization;
     const reqCode = authHeader.split(' ')[1];
-    console.log(reqCode);
     AuthCode.findOne({ code: reqCode }).then(result => {
       console.log(result);
       if (!result) {
