@@ -71,6 +71,9 @@ class App {
       preflightContinue: true
     };
     router.use(cors());
+    this.express.get('/', function(req, res, next) {
+      res.send('Hello World');
+    })
 
     this.express.use('/', router);
     this.express.use('/login', LoginRouter);
