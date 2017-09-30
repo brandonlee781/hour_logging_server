@@ -82,6 +82,7 @@ export class LogRouter {
    * @param next {NextFunction} The next function to continue
    */
   public getAll(req: Request, res: Response, next: NextFunction) { 
+    console.log('get all');
     let search = { date: { $gte: '01/01/1970', $lte: moment().format('MM/DD/YYYY') } };
     if (req.query.fromDate) {
       search.date['$gte'] = moment(req.query.fromDate, 'YYYY-MM-DD').startOf('day').format('MM/DD/YYYY');
@@ -89,9 +90,10 @@ export class LogRouter {
     if (req.query.toDate) {
       search.date['$lte'] = moment(req.query.toDate, 'YYYY-MM-DD').endOf('day').format('MM/DD/YYYY');
     }
-
+    console.log('search created');
     Log.find(search).skip(+req.query.skip || 0).limit(20).sort({ date: -1, startTime: -1, createdAt: -1 })
       .then(logs => {
+        console.log('logs got');
         res.send(logs.map(log => log.toObject()));
         return;
       })
