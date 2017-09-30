@@ -11,6 +11,7 @@ require('dotenv').config();
 // Routes
 import LogRouter from './routes/LogRouter';
 import LoginRouter from './routes/LoginRouter';
+import AccessRouter from './routes/AccessRouter';
 
 // interfaces
 import { IUser } from './interfaces/user';
@@ -63,16 +64,17 @@ class App {
     
     // CORS options
     const corsOpts = {
-      allowedHeaders: ['Origins', 'X-Requested-With', 'Content-Type', 'Accept', 'X-Access-Token'],
+      allowedHeaders: ['Origins', 'X-Requested-With', 'Content-Type', 'Accept', 'X-Access-Token', 'Authorization'],
       credentials: true,
       methods: 'GET, HEAD, OPTIONS, PUT, PATCH, POST, DELETE',
-      origin: 'http://localhost:3000',
+      origin: 'http://localhost:8080',
       preflightContinue: true
     };
-    router.use(cors(corsOpts));
+    router.use(cors());
 
     this.express.use('/', router);
     this.express.use('/login', LoginRouter);
+    this.express.use('/access', AccessRouter);
     this.express.use('/api/v1/logs', Auth, LogRouter);
   }
 }

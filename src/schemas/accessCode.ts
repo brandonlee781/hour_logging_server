@@ -1,11 +1,12 @@
 import { Schema } from 'mongoose';
 import * as uuid from 'uuid/v4';
+import * as moment from 'moment';
 
 export const accessCodeSchema: Schema = new Schema({
   _id: {
     type: String,
     required: true,
-    default: uuid(),
+    default: uuid,
     unique: true
   },
   code: {
@@ -21,6 +22,6 @@ export const accessCodeSchema: Schema = new Schema({
   expiresAt: {
     type: Date,
     required: true,
-    default: new Date(+new Date() + (3*60*1000)) // 3 minutes
+    default: moment().add(3, 'minutes').toDate()
   }
 })

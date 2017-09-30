@@ -5,4 +5,5 @@ export interface ILog {
   date?: Date;
   duration?: number;
   project?: string; 
+  note?: string;
 }

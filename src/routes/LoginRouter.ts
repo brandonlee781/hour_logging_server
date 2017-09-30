@@ -24,7 +24,7 @@ export class LoginRouter {
       .then(access => {
         if (!access) {
           res.sendStatus(401);
-          return next();
+          return;
         }
         const accessCode: IAccessCodeModel = access;
         const now: number = (new Date()).getTime();
@@ -34,14 +34,19 @@ export class LoginRouter {
           const code = crypto.randomBytes(20).toString('hex');
           const authCode = new AuthCode({code: code});
           authCode.save().then(result => {
+            access.remove();
             res.status(200).send(result.toObject());
-            return next();
+            return;
           });
+        } else {
+          access.remove();
+          res.status(400).send({ message: 'Access code is expired' });
+          return;
         }
       })
       .catch(err => {
         res.status(500).send({err: err});
-        return next();
+        return;
       })
   }
 

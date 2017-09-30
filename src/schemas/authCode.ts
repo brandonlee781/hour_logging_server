@@ -5,7 +5,7 @@ export const authCodeSchema: Schema = new Schema({
   _id: {
     type: String,
     required: true,
-    default: uuid(),
+    default: uuid,
     unique: true
   },
   code: {

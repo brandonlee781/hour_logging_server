@@ -1,5 +1,6 @@
 import { Schema } from 'mongoose';
 import * as uuid from 'uuid/v4';
+import * as moment from 'moment';
 
 export const logSchema: Schema = new Schema({
   createdAt: {
@@ -10,13 +11,13 @@ export const logSchema: Schema = new Schema({
   _id: {
     type: String,
     required: true,
-    default: uuid(),
+    default: uuid,
     unique: true
   },
   date: {
-    type: Date,
+    type: String,
     required: true,
-    default: Date.now
+    default: moment().format('YYYY-MM-DD')
   },
   startTime: {
     type: String,
@@ -27,12 +28,21 @@ export const logSchema: Schema = new Schema({
     required: true
   },
   duration: {
-    type: Number,
-    required: true
+    type: Number
   },
   project: {
     type: String,
     required: true
+  },
+  note: {
+    type: String
   }
-
+})
+logSchema.pre('save', function(next) {
+  const startTime = moment(this.get('startTime'), ['HH:mm']);
+  const endTime = moment(this.get('endTime'), ['HH:mm']);
+  this.startTime = startTime.format('HH:mm');
+  this.endTime = endTime.format('HH:mm');
+  this.duration = endTime.diff(startTime, 'hours', true);
+  next();
 })
