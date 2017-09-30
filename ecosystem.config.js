@@ -11,7 +11,7 @@ module.exports = {
       ref: 'origin/master',
       repo: 'git@github.com:brandonlee781/hour_logging_server.git',
       path: '/home/ubuntu/server',
-      'post-deploy': 'npm install && npm run dev && pm2 startOrRestart ecosystem.config.js'
+      'post-deploy': 'npm install && npm run build && pm2 startOrRestart ecosystem.config.js'
     }
   }
 }
