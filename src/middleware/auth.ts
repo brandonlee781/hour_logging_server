@@ -5,7 +5,7 @@ class AuthMiddleware {
   constructor() {}
 
   authenticate(req: Request, res: Response, next: NextFunction) {
-    const reqCode = req.headers.authorization.split(' ')[1];
+    const reqCode = req.headers.authorization[0].split(' ')[1];
     AuthCode.findOne({ code: reqCode }).then(result => {
       if (!result) {
         res.sendStatus(401);
