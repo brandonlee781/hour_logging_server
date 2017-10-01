@@ -1,9 +1,9 @@
 import { Model } from 'mongoose';
-import { IUserModel } from './user';
-import { ILogModel } from './log';
-import { IAccessCodeModel } from './accessCode';
-import { IAuthCodeModel } from './authCode';
-import { IInvoiceModel } from './invoice';
+import { IUserModel } from './User';
+import { ILogModel } from './Log';
+import { IAccessCodeModel } from './AccessCode';
+import { IAuthCodeModel } from './AuthCode';
+import { IInvoiceModel } from './Invoice';
 
 export interface IModel {
   user: Model<IUserModel>;

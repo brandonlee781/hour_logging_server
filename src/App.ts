@@ -18,9 +18,9 @@ import { IUser } from './interfaces/user';
 import { ILog } from './interfaces/log';
 
 // models
-import { IModel } from './models/model';
-import { IUserModel } from './models/user';
-import { ILogModel } from './models/log';
+import { IModel } from './models/Model';
+import { IUserModel } from './models/User';
+import { ILogModel } from './models/Log';
 
 // schemas
 import { userSchema } from './schemas/user';
