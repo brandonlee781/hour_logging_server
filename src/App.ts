@@ -91,8 +91,8 @@ class App {
     });
 
     this.express.use('/', router);
-    this.express.use('/login', LoginRouter);
-    this.express.use('/access', AccessRouter);
+    this.express.use('/api/v1/login', LoginRouter);
+    this.express.use('/api/v1/access', AccessRouter);
     this.express.use('/api/v1/logs', auth, LogRouter);
   }
 }
