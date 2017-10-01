@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { AuthCode, IAuthCodeModel } from '../models/authCode';
+import AuthCode, { IAuthCodeModel } from '../models/AuthCode';
 
 class AuthMiddleware {
   constructor() {}
