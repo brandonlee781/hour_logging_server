@@ -36,7 +36,7 @@ export class AccessRouter {
     };
     accessCode.save()
       .then((result) => {
-        mail.html = `<a href="http://localhost:8080/login?accessCode=${result.code}">
+        mail.html = `<a href="https://www.branlee.me/work/#/login?accessCode=${result.code}">
                       Click to Log in to Log Router
                     </a>`;
 
