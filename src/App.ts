@@ -5,6 +5,7 @@ import * as logger from 'morgan';
 import * as bodyParser from 'body-parser';
 import * as mongoose from 'mongoose';
 import errorhandler = require('errorhandler');
+import RateLimit = require('express-rate-limit');
 require('dotenv').config();
 
 
@@ -51,25 +52,11 @@ class App {
   }
 
   private middleware(): void {
-    this.express.use(logger('dev'));
-    this.express.use(bodyParser.json());
-    this.express.use(bodyParser.urlencoded({ extended: false }));
-    // catch 404 and forward to error handler
-    this.express.use((
-      err: any, 
-      req: express.Request, 
-      res: express.Response, 
-      next: express.NextFunction,
-    ) => {
-      err.status = 404;
-      next(err);
+    const limiter = new RateLimit({
+      windowMs: 15 * 60 * 1000,
+      max: 15,
+      delayMs: 60,
     });
-    this.express.use(errorhandler());
-  }
-
-  private routes(): void {
-    const router = express.Router();
-    
     // CORS options
     const corsOpts = {
       allowedHeaders: [
@@ -85,7 +72,29 @@ class App {
       origin: 'https://www.branlee.me/',
       preflightContinue: true,
     };
-    router.use(cors());
+
+    this.express.use(cors(corsOpts));
+    this.express.use(logger('dev'));
+    this.express.use(bodyParser.json());
+    this.express.use(bodyParser.urlencoded({ extended: false }));
+    // catch 404 and forward to error handler
+    this.express.use((
+      err: any, 
+      req: express.Request, 
+      res: express.Response, 
+      next: express.NextFunction,
+    ) => {
+      err.status = 404;
+      next(err);
+    });
+    this.express.use(limiter);
+    this.express.use(errorhandler());
+  }
+
+  private routes(): void {
+    const router = express.Router();
+    
+    
     this.express.get('/', (req, res, next) => {
       res.send('Hello World');
     });
