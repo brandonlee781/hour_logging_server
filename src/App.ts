@@ -82,7 +82,7 @@ class App {
       ],
       credentials: true,
       methods: 'GET, HEAD, OPTIONS, PUT, PATCH, POST, DELETE',
-      origin: 'http://localhost:8080',
+      origin: 'https://www.branlee.me/',
       preflightContinue: true,
     };
     router.use(cors());
