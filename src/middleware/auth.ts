@@ -12,7 +12,6 @@ class AuthMiddleware {
     const authHeader: any = req.headers.authorization;
     const reqCode = authHeader.split(' ')[1];
     AuthCode.findOne({ code: reqCode }).then((result) => {
-      console.log(result);
       if (!result) {
         res.sendStatus(401);
         return;

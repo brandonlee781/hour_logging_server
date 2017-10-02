@@ -6,6 +6,7 @@ import * as bodyParser from 'body-parser';
 import * as mongoose from 'mongoose';
 import errorhandler = require('errorhandler');
 import RateLimit = require('express-rate-limit');
+import helmet = require('helmet');
 require('dotenv').config();
 
 
@@ -69,11 +70,12 @@ class App {
       ],
       credentials: true,
       methods: 'GET, HEAD, OPTIONS, PUT, PATCH, POST, DELETE',
-      origin: 'https://www.branlee.me/',
+      origin: ['https://www.branlee.me/', process.env.HOME_IP],
       preflightContinue: true,
     };
 
     this.express.use(cors(corsOpts));
+    this.express.use(helmet());
     this.express.use(logger('dev'));
     this.express.use(bodyParser.json());
     this.express.use(bodyParser.urlencoded({ extended: false }));
