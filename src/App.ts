@@ -70,7 +70,7 @@ class App {
       ],
       credentials: true,
       methods: 'GET, HEAD, OPTIONS, PUT, PATCH, POST, DELETE',
-      // origin: ['https://www.branlee.me/', 'http://localhost:8080'],
+      origin: ['https://www.branlee.me/', process.env.HOME_IP],
       preflightContinue: true,
     };
 
