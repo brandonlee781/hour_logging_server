@@ -34,12 +34,12 @@ export class LoginRouter {
           const code = crypto.randomBytes(20).toString('hex');
           const authCode = new AuthCode({ code });
           authCode.save().then((result) => {
-            access.remove();
+            // access.remove();
             res.status(200).send(result.toObject());
             return;
           });
         } else {
-          access.remove();
+          // access.remove();
           res.status(400).send({ message: 'Access code is expired' });
           return;
         }
