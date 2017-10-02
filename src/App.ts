@@ -55,7 +55,7 @@ class App {
   private middleware(): void {
     const limiter = new RateLimit({
       windowMs: 15 * 60 * 1000,
-      max: 15,
+      max: 100,
       delayMs: 60,
     });
     // CORS options
