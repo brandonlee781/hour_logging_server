@@ -187,14 +187,6 @@ export class LogRouter {
     })
     .catch(next);
   }
-  
-  public options(req: Request, res: Response, next: NextFunction) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'DELETE');
-    res.header('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type');
-    
-    next();
-  }
 
   /**
    * Initialize the Log route
@@ -209,8 +201,6 @@ export class LogRouter {
     this.router.get('/:id', this.getOne);
     this.router.put('/:id', this.update);
     this.router.delete('/:id', this.delete);
-    this.router.options('/:id', this.options);
-    this.router.options('/', this.options);
   }
 }
 

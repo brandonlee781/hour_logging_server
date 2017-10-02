@@ -101,6 +101,20 @@ class App {
       res.send('Hello World');
     });
 
+    this.express.options('/*', (
+      req: express.Request, 
+      res: express.Response, 
+      next: express.NextFunction,
+    ) => {
+      res.header('Access-Control-Allow-Origin', '*');
+      res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
+      res.header(
+        'Access-Control-Allow-Headers', 
+        'X-Requested-With,Content-Type,Content-Length,Authorization',
+      );
+      res.sendStatus(200);
+    });
+
     this.express.use('/', router);
     this.express.use('/api/v1/login', LoginRouter);
     this.express.use('/api/v1/access', AccessRouter);
