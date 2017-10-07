@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ./dist/index.js",
-    "build": "tsc -p ./tsconfig.build.json",
     "test": "mocha --reporter spec --compilers ts:ts-node/register 'test/**/*.test.ts'",
+    "start": "nodemon --config nodemon.config.json",
+    "build": "tsc -p ./tsconfig.build.json",
     "dev": "tsc -p ./tsconfig.build.json --watch",
     "deploy": "pm2 deploy ecosystem.config.js production",
     "restart": "pm2 startOrRestart ecosystem.config.js"
