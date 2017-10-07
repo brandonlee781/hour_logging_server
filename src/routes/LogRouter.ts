@@ -160,6 +160,7 @@ export class LogRouter {
     })
     .catch(next);
   }
+  
   /**
    * DELETE one log entry
    * 
@@ -173,7 +174,6 @@ export class LogRouter {
   public delete(req: Request, res: Response, next: NextFunction) {
     const logID: string = req.params.id;
     Log.findById(logID).then((log) => {
-      console.log(log);
       if (!log) {
         res.sendStatus(404);
         return;
