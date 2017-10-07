@@ -11,9 +11,10 @@ require('dotenv').config();
 
 
 // Routes
-import LogRouter from './routes/LogRouter';
 import LoginRouter from './routes/LoginRouter';
 import AccessRouter from './routes/AccessRouter';
+import LogRouter from './routes/LogRouter';
+import ProjectRouter from './routes/ProjectRouter';
 
 // interfaces
 import { IUser } from './interfaces/user';
@@ -86,7 +87,9 @@ class App {
       res: express.Response, 
       next: express.NextFunction,
     ) => {
-      err.status = 404;
+      if (err) {
+        console.error(err);
+      }
       next(err);
     });
     this.express.use(limiter);
@@ -119,6 +122,7 @@ class App {
     this.express.use('/api/v1/login', LoginRouter);
     this.express.use('/api/v1/access', AccessRouter);
     this.express.use('/api/v1/logs', auth, LogRouter);
+    this.express.use('/api/v1/projects', auth, ProjectRouter);
   }
 }
 export default new App().express;
