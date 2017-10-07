@@ -1,13 +1,14 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
-    "target": "es6",
+    "target": "es2017",
     "lib": ["es6", "dom"],
     "module": "commonjs",
     "experimentalDecorators": true,
     "allowJs": true,
     "watch": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "sourceMap": true
   },
   "include": [
     "src/**/*.ts",
