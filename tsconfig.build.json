@@ -6,7 +6,8 @@
     "module": "commonjs",
     "experimentalDecorators": true,
     "allowJs": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "sourceMap": true
   },
   "include": [
     "src/**/*.ts"
