@@ -1,6 +1,7 @@
 import { suite, test } from 'mocha-typescript';
 import { ILog } from '../src/interfaces/log';
 import chaiHttp = require('chai-http');
+require('dotenv').config();
 
 const chai = require('chai');
 let testID: string;
@@ -19,7 +20,7 @@ describe('Log Web API', () => {
     constructor() {
       this.data = {
         date: new Date(),
-        startTime: '8:00',
+        startTime: '08:00',
         endTime: '12:00',
         duration: 4,
         project: 'Quantogy',
@@ -29,10 +30,11 @@ describe('Log Web API', () => {
 
   @suite('POST api/v1/log')
   class CreateLogRoute extends BaseRouteTest {
-    @test('should create a new route')
+    @test('should create a new log entry')
     public create() {
       return this.route
         .post('/')
+        .set('Authorization', `Bearer ${process.env.TEST_CODE}`)
         .send(this.data)
         .then((result) => {
           testID = result.body._id;
@@ -57,6 +59,7 @@ describe('Log Web API', () => {
     public getAll() {
       return this.route
         .get('/')
+        .set('Authorization', `Bearer ${process.env.TEST_CODE}`)
         .then((result) => {
           result.should.have.status(200);
           result.body.should.exist;
@@ -76,6 +79,7 @@ describe('Log Web API', () => {
     public getOne() {
       return this.route
         .get('/' + testID)
+        .set('Authorization', `Bearer ${process.env.TEST_CODE}`)
         .then((result) => {
           result.should.have.status(200);
           result.body.should.exist;
@@ -92,10 +96,11 @@ describe('Log Web API', () => {
           );
         });
     }
-    @test('should fail to get a route')
+    @test('should fail to get an entry')
     public invalidId() {
       return this.route
         .get('/not-a-real-id')
+        .set('Authorization', `Bearer ${process.env.TEST_CODE}`)
         .catch((result) => {
           result.should.have.status(404);
         });
@@ -108,11 +113,12 @@ describe('Log Web API', () => {
     public update() {
       return this.route
         .put('/' + testID)
+        .set('Authorization', `Bearer ${process.env.TEST_CODE}`)
         .send({ startTime: '7:00', duration: 5 })
         .then((result) => {
           result.should.have.status(200);
           result.body.duration.should.equal(5);
-          result.body.startTime.should.equal('7:00');
+          result.body.startTime.should.equal('07:00');
         });
     }
 
@@ -120,7 +126,8 @@ describe('Log Web API', () => {
     public invalidId() {
       return this.route
         .put('/invalid-id')
-        .send({ startTime: '7:00', duration: 5 })
+        .set('Authorization', `Bearer ${process.env.TEST_CODE}`)
+        .send({ startTime: '07:00', duration: 5 })
         .catch((result) => {
           result.should.have.status(404);
         });
@@ -133,6 +140,7 @@ describe('Log Web API', () => {
     public delete() {
       return this.route
         .delete('/' + testID)
+        .set('Authorization', `Bearer ${process.env.TEST_CODE}`)
         .then((result) => {
           result.should.have.status(204);
           result.body.should.be.empty;
@@ -143,6 +151,7 @@ describe('Log Web API', () => {
     public invalidId() {
       return this.route
         .delete('/invalid-id')
+        .set('Authorization', `Bearer ${process.env.TEST_CODE}`)
         .catch((result) => {
           result.should.have.status(404);
         });
