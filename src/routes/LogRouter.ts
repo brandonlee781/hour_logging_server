@@ -83,23 +83,18 @@ export class LogRouter {
    */
   public getAll(req: Request, res: Response, next: NextFunction) { 
     const search = { date: { $gte: '01/01/1970', $lte: moment().format('MM/DD/YYYY') } };
-    let searchLimit = 20;
     if (req.query.fromDate) {
       search.date['$gte'] = moment(req.query.fromDate, 'YYYY-MM-DD')
                               .startOf('day')
                               .format('MM/DD/YYYY');
-      searchLimit = 10000;
     }
     if (req.query.toDate) {
       search.date['$lte'] = moment(req.query.toDate, 'YYYY-MM-DD')
                               .endOf('day')
                               .format('MM/DD/YYYY');
-      searchLimit = 10000;
     }
     Log
       .find(search)
-      .skip(+req.query.skip || 0)
-      .limit(searchLimit)
       .sort({ date: -1, startTime: -1, createdAt: -1 })
       .then((logs) => {
         res.send(logs.map(log => log.toObject()));
