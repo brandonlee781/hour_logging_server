@@ -22,6 +22,5 @@ export const accessCodeSchema: Schema = new Schema({
   expiresAt: {
     type: Date,
     required: true,
-    default: moment().add(3, 'minutes').toDate(),
   },
 });

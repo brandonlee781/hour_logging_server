@@ -2,6 +2,7 @@ import { Router, Request, Response, NextFunction } from 'express';
 import * as mongoose from 'mongoose';
 import * as nodemailer from 'nodemailer';
 import * as crypto from 'crypto';
+import * as moment from 'moment';
 require('dotenv').config();
 
 import AccessCode, { IAccessCodeModel } from '../models/AccessCode';
@@ -27,7 +28,10 @@ export class AccessRouter {
   }
 
   public emailAccessCode(req: Request, res: Response, next: NextFunction) {
-    const accessCode = new AccessCode({ code: this.createAccessCode() });
+    const accessCode = new AccessCode({ 
+      code: this.createAccessCode(), 
+      expiresAt: moment().add(15, 'minutes').toDate(),
+    });
     const mail = {
       from: '"Hour Logger" <brandonlee781@gmail.com>',
       to: 'brandonlee781@gmail.com',
