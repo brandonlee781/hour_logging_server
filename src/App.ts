@@ -48,7 +48,7 @@ class App {
   private config(): void {
     const dbUser = process.env.MLAB_USER;
     const dbPass = process.env.MLAB_PASS;
-    const MONGODB_CONNECTION: string = 'mongodb://localhost:/hour_logger';
+    const MONGODB_CONNECTION: string = 'mongodb://localhost/hour_logger';
     // `mongodb://${dbUser}:${dbPass}@ds053788.mlab.com:53788/hour_tracker`;
     mongoose.connect(MONGODB_CONNECTION, { useMongoClient: true });
   }
