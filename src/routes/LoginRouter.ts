@@ -17,37 +17,27 @@ export class LoginRouter {
     this.init();
   }
 
-  public generateAuthCode(req: Request, res: Response, next: NextFunction) {
+  public async generateAuthCode(req: Request, res: Response, next: NextFunction) {
     const reqCode = req.query.accessCode;
-    AccessCode
-      .findOne({ code: reqCode })
-      .then((access) => {
-        if (!access) {
-          res.sendStatus(401);
-          return;
-        }
-        const accessCode: IAccessCodeModel = access;
-        const now: number = (new Date()).getTime();
-        const expires: number = (new Date(accessCode.expiresAt)).getTime();
+    const code = crypto.randomBytes(20).toString('hex');
+    const now: number = (new Date()).getTime();
+    const access: IAccessCodeModel = await AccessCode.findOne({ code: reqCode });
+    if (!access) {
+      res.sendStatus(401);
+      return;
+    }
+    const expires: number = (new Date(access.expiresAt)).getTime();
+    console.log({ access, expires, now });
 
-        if (now <= expires) {
-          const code = crypto.randomBytes(20).toString('hex');
-          const authCode = new AuthCode({ code });
-          authCode.save().then((result) => {
-            // access.remove();
-            res.status(200).send(result.toObject());
-            return;
-          });
-        } else {
-          // access.remove();
-          res.status(400).send({ message: 'Access code is expired' });
-          return;
-        }
-      })
-      .catch((err) => {
-        res.status(500).send({ err });
-        return;
-      });
+    if (now <= expires) {
+      const authCode = new AuthCode({ code });
+      const auth = await authCode.save();
+      res.status(200).send(auth.toObject());
+      return;
+    } else {
+      res.status(400).send({ message: 'Access code is expired' });
+      return;
+    }
   }
 
   init() {
