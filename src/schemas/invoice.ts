@@ -1,21 +1,7 @@
 import { Schema } from 'mongoose';
 import * as uuid from 'uuid/v4';
 import * as moment from 'moment';
-
-export const invoiceProjectSchema: Schema = new Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  hours: {
-    type: Number,
-    required: true,
-  },
-  amount: {
-    type: Number,
-    required: true,
-  },
-});
+import { logSchema } from './log';
 
 export const invoiceSchema: Schema = new Schema({
   createdAt: {
@@ -42,5 +28,8 @@ export const invoiceSchema: Schema = new Schema({
     type: Number,
     required: true,
   },
-  project: [invoiceProjectSchema],
+  project: {
+    type: Object,
+    required: true, 
+  },
 });
