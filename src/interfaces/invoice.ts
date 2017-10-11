@@ -4,6 +4,6 @@ export interface IInvoice {
   id?: string;
   number?: number;
   date?: string;
-  projects?: ILog[];
+  logs?: ILog[];
   total?: number;
 }

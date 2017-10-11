@@ -28,7 +28,7 @@ export const invoiceSchema: Schema = new Schema({
     type: Number,
     required: true,
   },
-  project: {
+  logs: {
     type: Object,
     required: true, 
   },
