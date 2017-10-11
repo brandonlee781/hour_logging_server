@@ -15,6 +15,7 @@ import LoginRouter from './routes/LoginRouter';
 import AccessRouter from './routes/AccessRouter';
 import LogRouter from './routes/LogRouter';
 import ProjectRouter from './routes/ProjectRouter';
+import InvoiceRouter from './routes/InvoiceRouter';
 
 // interfaces
 import { IUser } from './interfaces/user';
@@ -123,6 +124,7 @@ class App {
     this.express.use('/api/v1/access', AccessRouter);
     this.express.use('/api/v1/logs', auth, LogRouter);
     this.express.use('/api/v1/projects', auth, ProjectRouter);
+    this.express.use('/api/v1/invoices', auth, InvoiceRouter);
   }
 }
 export default new App().express;
