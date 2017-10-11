@@ -29,7 +29,7 @@ export const invoiceSchema: Schema = new Schema({
     required: true,
   },
   logs: {
-    type: Object,
+    type: [logSchema],
     required: true, 
   },
 });
