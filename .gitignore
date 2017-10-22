@@ -3,3 +3,4 @@
 /.tscache/
 /.env/
 /dist/
+/ecosystem.config.js
