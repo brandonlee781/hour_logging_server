@@ -126,7 +126,7 @@ class App {
     this.express.use('/api/v1/logs', auth, LogRouter);
     this.express.use('/api/v1/projects', auth, ProjectRouter);
     this.express.use('/api/v1/invoices', auth, InvoiceRouter);
-    this.express.use('/api/v1/invoices', GithubRouter);
+    this.express.use('/api/v1/github', GithubRouter);
   }
 }
 export default new App().express;
