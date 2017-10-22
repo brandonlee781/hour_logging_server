@@ -16,7 +16,6 @@ import AccessRouter from './routes/AccessRouter';
 import LogRouter from './routes/LogRouter';
 import ProjectRouter from './routes/ProjectRouter';
 import InvoiceRouter from './routes/InvoiceRouter';
-import GithubRouter from './routes/GithubRouter';
 
 // interfaces
 import { IUser } from './interfaces/user';
@@ -51,6 +50,7 @@ class App {
     const dbUser = process.env.MLAB_USER;
     const dbPass = process.env.MLAB_PASS;
     const MONGODB_CONNECTION: string = 'mongodb://localhost/hour_logger';
+    // `mongodb://${dbUser}:${dbPass}@ds053788.mlab.com:53788/hour_tracker`;
     mongoose.connect(MONGODB_CONNECTION, { useMongoClient: true });
   }
 
@@ -118,13 +118,13 @@ class App {
       );
       res.sendStatus(200);
     });
+
     this.express.use('/', router);
     this.express.use('/api/v1/login', LoginRouter);
     this.express.use('/api/v1/access', AccessRouter);
     this.express.use('/api/v1/logs', auth, LogRouter);
     this.express.use('/api/v1/projects', auth, ProjectRouter);
     this.express.use('/api/v1/invoices', auth, InvoiceRouter);
-    this.express.use('/api/v1/github', GithubRouter);
   }
 }
 export default new App().express;
