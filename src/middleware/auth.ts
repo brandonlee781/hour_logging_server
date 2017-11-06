@@ -18,6 +18,7 @@ class AuthMiddleware {
       }
       
       const authCode: IAuthCodeModel = result;
+      console.log(authCode);
       const now: number = (new Date()).getTime();
       const expires: number = (new Date(authCode.expiresAt)).getTime();
 

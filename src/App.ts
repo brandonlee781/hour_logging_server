@@ -100,25 +100,6 @@ class App {
 
   private routes(): void {
     const router = express.Router();
-    
-    
-    this.express.get('/', (req, res, next) => {
-      res.send('Hello World');
-    });
-
-    this.express.options('/*', (
-      req: express.Request, 
-      res: express.Response, 
-      next: express.NextFunction,
-    ) => {
-      res.header('Access-Control-Allow-Origin', '*');
-      res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
-      res.header(
-        'Access-Control-Allow-Headers', 
-        'X-Requested-With,Content-Type,Content-Length,Authorization',
-      );
-      res.sendStatus(200);
-    });
 
     this.express.use('/', router);
     this.express.use('/api/v1/login', LoginRouter);
