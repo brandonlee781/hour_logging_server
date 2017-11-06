@@ -6,14 +6,14 @@ class AuthMiddleware {
 
   authenticate(req: Request, res: Response, next: NextFunction) {
     if (!req.headers.authorization) {
-      res.sendStatus(401);
+      res.status(401).send({ message: 'No Authorization code was send with the request.' });
       return;
     }
     const authHeader: any = req.headers.authorization;
     const reqCode = authHeader.split(' ')[1];
     AuthCode.findOne({ code: reqCode }).then((result) => {
       if (!result) {
-        res.sendStatus(401);
+        res.status(401).send({ message: 'No authorization code was found in the database.' });
         return;
       }
       
