@@ -26,7 +26,7 @@ class AuthMiddleware {
         next();
         return;
       } else {
-        result.remove();
+        // result.remove();
         res.status(401).send({ message: 'This authorization code has expires' });
         return;
       }

@@ -73,7 +73,7 @@ class App {
       ],
       credentials: true,
       methods: 'GET, HEAD, OPTIONS, PUT, PATCH, POST, DELETE',
-      // origin: ['https://www.branlee.me/', process.env.HOME_IP],
+      origin: '*',
       preflightContinue: true,
     };
 
