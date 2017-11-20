@@ -77,7 +77,7 @@ class App {
       preflightContinue: true,
     };
 
-    this.express.use(cors(corsOpts));
+    this.express.use(cors());
     this.express.use(helmet());
     this.express.use(logger('dev'));
     this.express.use(bodyParser.json());
