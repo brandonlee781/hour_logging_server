@@ -4,9 +4,20 @@
       {
         "type": "node",
         "request": "launch",
-        "name": "Launch index.ts",
-        "program": "${workspaceFolder}/src/index.ts",
-        "outFiles": ["${workspaceFolder}/dist/**/*.js"]
+        "name": "Launch",
+        "sourceMaps": true,
+        "stopOnEntry": true,
+        "console": "internalConsole",
+        "cwd": "${workspaceRoot}",
+        "program": "${workspaceRoot}/src/index.ts",
+        "outFiles": ["${workspaceRoot}/dist/**/*.js"]
+      },
+      {
+        "type": "node",
+        "request": "attach",
+        "name": "Attach to Process",
+        "port": 5858,
+        "outFiles": []
       }
     ]
   }

@@ -15,6 +15,8 @@ import LoginRouter from './routes/LoginRouter';
 import AccessRouter from './routes/AccessRouter';
 import LogRouter from './routes/LogRouter';
 import ProjectRouter from './routes/ProjectRouter';
+import InvoiceRouter from './routes/InvoiceRouter';
+import GithubRouter from './routes/GithubRouter';
 
 // interfaces
 import { IUser } from './interfaces/user';
@@ -71,11 +73,11 @@ class App {
       ],
       credentials: true,
       methods: 'GET, HEAD, OPTIONS, PUT, PATCH, POST, DELETE',
-      // origin: ['https://www.branlee.me/', process.env.HOME_IP],
+      origin: '*',
       preflightContinue: true,
     };
 
-    this.express.use(cors(corsOpts));
+    this.express.use(cors());
     this.express.use(helmet());
     this.express.use(logger('dev'));
     this.express.use(bodyParser.json());
@@ -98,11 +100,6 @@ class App {
 
   private routes(): void {
     const router = express.Router();
-    
-    
-    this.express.get('/', (req, res, next) => {
-      res.send('Hello World');
-    });
 
     this.express.options('/*', (
       req: express.Request, 
@@ -123,6 +120,8 @@ class App {
     this.express.use('/api/v1/access', AccessRouter);
     this.express.use('/api/v1/logs', auth, LogRouter);
     this.express.use('/api/v1/projects', auth, ProjectRouter);
+    this.express.use('/api/v1/invoices', auth, InvoiceRouter);
+    this.express.use('/api/v1/github', GithubRouter);
   }
 }
 export default new App().express;

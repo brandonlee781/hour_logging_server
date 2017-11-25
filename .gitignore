@@ -2,4 +2,6 @@
 .env
 /.tscache/
 /.env/
+/..bfg-report
 /dist/
+/ecosystem.config.js

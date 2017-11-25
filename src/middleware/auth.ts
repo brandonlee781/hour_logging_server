@@ -6,18 +6,19 @@ class AuthMiddleware {
 
   authenticate(req: Request, res: Response, next: NextFunction) {
     if (!req.headers.authorization) {
-      res.sendStatus(401);
+      res.status(401).send({ message: 'No Authorization code was send with the request.' });
       return;
     }
     const authHeader: any = req.headers.authorization;
     const reqCode = authHeader.split(' ')[1];
     AuthCode.findOne({ code: reqCode }).then((result) => {
       if (!result) {
-        res.sendStatus(401);
+        res.status(401).send({ message: 'No authorization code was found in the database.' });
         return;
       }
       
       const authCode: IAuthCodeModel = result;
+      console.log(authCode);
       const now: number = (new Date()).getTime();
       const expires: number = (new Date(authCode.expiresAt)).getTime();
 
@@ -25,7 +26,7 @@ class AuthMiddleware {
         next();
         return;
       } else {
-        result.remove();
+        // result.remove();
         res.status(401).send({ message: 'This authorization code has expires' });
         return;
       }

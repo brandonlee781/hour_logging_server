@@ -1,13 +1,9 @@
-export interface IInvoiceProject {
-  name?: string;
-  hours?: number;
-  amount?: number;
-}
+import { ILog } from './log';
 
 export interface IInvoice {
   id?: string;
   number?: number;
   date?: string;
-  projects?: IInvoiceProject[];
+  logs?: ILog[];
   total?: number;
 }
